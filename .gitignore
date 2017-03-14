@@ -57,3 +57,5 @@ typings/
 # dotenv environment variables file
 .env
 
+# The config directory until we get db connection hidden
+config/
