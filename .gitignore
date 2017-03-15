@@ -59,3 +59,6 @@ typings/
 
 # The config directory until we get db connection hidden
 config/
+
+# Sample data
+*csv
