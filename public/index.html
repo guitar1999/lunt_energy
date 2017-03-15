@@ -3,11 +3,19 @@
 <style>
 
 .bar {
-  fill: steelblue;
+  fill: goldenrod;
 }
 
 .bar:hover {
-  fill: brown;
+  fill: rosybrown;
+}
+
+.point {
+  fill: orange;
+}
+
+.point:hover {
+  fill: firebrick;
 }
 
 .axis--x path {
@@ -56,8 +64,23 @@ d3.json("/api/hourly", function(error, data) {
     .enter().append("rect")
       .attr("class", "bar")
       .attr("x", function(d) { return x(d.label); })
-      .attr("y", function(d) { return y(d.kwh); })
+      .attr("y", function(d) { return height; } )
       .attr("width", x.bandwidth())
+      .attr("heght", 0)
+      .transition()
+      .duration(200)
+      .delay(function (d, i) {
+        return i * 70;
+      })
+      .attr("y", function(d) { return y(d.kwh); })
       .attr("height", function(d) { return height - y(d.kwh); });
+
+  g.selectAll(".point")
+    .data(chartdata)
+    .enter().append("svg:circle")
+      .attr("class", "point")
+      .attr("r", 4)
+      .attr("cx", function(d) { return x(d.label) + x.bandwidth() / 2; })
+      .attr("cy", function(d) { return y(d.kwh_avg_season); });
 });
 </script>
