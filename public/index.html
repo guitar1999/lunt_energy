@@ -99,7 +99,7 @@ d3.json("/api/hourly", function(error, data) {
       .transition()
       .duration(200)
       .delay(function (d, i) {
-        return i * 70;
+        return i * 50;
       })
       .attr("y", function(d) { return y(d.kwh); })
       .attr("height", function(d) { return height - y(d.kwh); });
