@@ -110,6 +110,18 @@ d3.json("/api/hourly", function(error, data) {
       .attr("class", "point")
       .attr("r", 4)
       .attr("cx", function(d) { return x(d.label) + x.bandwidth() / 2; })
-      .attr("cy", function(d) { return y(d.kwh_avg_season); });
+      .attr("opacity", 0)
+      .transition()
+      .duration(200)
+      .delay(function (d, i) {
+        return i * 70;
+      })
+      .attr("cy", function(d) { return y(d.kwh_avg_season); })
+      .attr("opacity", 1);
 });
+
+function updatehour() {
+  var newdata = d3.json('api/hourly/13');
+  console.log(newdata)
+}
 </script>

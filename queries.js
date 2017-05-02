@@ -43,7 +43,26 @@ function getHourly(req, res, next) {
             return next(err);
         });
 }
+
+function getHour(req, res, next) {
+    var hour = parseInt(req.params.hour);
+    db.one('SELECT * FROM view_hourly WHERE label = $1', hour)
+        .then(function (data) {
+            res.status(200)
+                .json({
+                    status: 'success',
+                    data: data,
+                    message: 'Retrieved one hour of data'
+                });
+        })
+        .catch(function (err) {
+            return next(err);
+        });
+}
+
+
 module.exports = {
   getLiveData: getLiveData,
-  getHourly: getHourly
+  getHourly: getHourly,
+  getHour: getHour
 };

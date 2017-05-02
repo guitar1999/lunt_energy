@@ -10,5 +10,6 @@ router.get('/', function(req, res, next) {
 
 router.get('/api/live', db.getLiveData);
 router.get('/api/hourly', db.getHourly);
+router.get('/api/hourly/:hour', db.getHour);
 
 module.exports = router;
