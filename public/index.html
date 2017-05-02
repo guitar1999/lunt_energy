@@ -7,16 +7,25 @@
   opacity: 0.9;
 }
 
-.bar:hover {
+.highbar {
   fill: rosybrown;
+  opacity: 0.9;
+}
+
+.bar:hover {
+  fill: darkred;
 }
 
 .point {
   fill: orange;
 }
 
+.highpoint {
+  fill:firebrick;
+}
+
 .point:hover {
-  fill: firebrick;
+  fill: darkblue;
 }
 
 .axis--x path {
@@ -91,7 +100,10 @@ d3.json("/api/hourly", function(error, data) {
   g.selectAll(".bar")
     .data(chartdata)
     .enter().append("rect")
-      .attr("class", "bar")
+      .attr("class", function(d) {
+        if (d.kwh > d.kwh_avg_season) {return "highbar"}
+        else {return "bar"}
+      })
       .attr("x", function(d) { return x(d.label); })
       .attr("y", function(d) { return height; } )
       .attr("width", x.bandwidth())
@@ -107,7 +119,10 @@ d3.json("/api/hourly", function(error, data) {
   g.selectAll(".point")
     .data(chartdata)
     .enter().append("svg:circle")
-      .attr("class", "point")
+      .attr("class", function(d) {
+        if (d.kwh > d.kwh_avg_season) {return "highpoint"}
+        else {return "point"}
+      })
       .attr("r", 4)
       .attr("cx", function(d) { return x(d.label) + x.bandwidth() / 2; })
       .attr("opacity", 0)
