@@ -9,7 +9,6 @@ var options = {
 var pgp = require('pg-promise')(options);
 
 var dbConfig = config.get('dbConfig');
-// var connectionString = 'postgres://localhost:5432/puppies';
 var db = pgp(dbConfig);
 
 // add query functions
@@ -30,7 +29,7 @@ function getLiveData(req, res, next) {
 }
 
 function getHourly(req, res, next) {
-    db.any('SELECT * FROM view_hourly ORDER BY row_number;')
+    db.any('SELECT * FROM electricity_plotting.electricity_hourly_season;')
         .then(function (data) {
             res.status(200)
                 .json({
